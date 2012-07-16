@@ -1,0 +1,38 @@
+﻿@model FalconWeb.Models.Device
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Device</legend>
+
+    <div class="display-label">IMEI</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IMEI)
+    </div>
+
+    <div class="display-label">MobileNumber</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MobileNumber)
+    </div>
+
+    <div class="display-label">VehicleNumber</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VehicleNumber)
+    </div>
+
+    <div class="display-label">Nickname</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nickname)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

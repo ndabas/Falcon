@@ -1,0 +1,55 @@
+﻿@model IEnumerable<FalconWeb.Models.UserViewModel>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Users</h2>
+
+<p>
+    @Html.ActionLink("Register New User", "Register", "Account")
+</p>
+<table>
+    <tr>
+        <th>
+            UserName
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Company Name
+        </th>
+        <th>
+            Mobile Number
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompanyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MobileNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

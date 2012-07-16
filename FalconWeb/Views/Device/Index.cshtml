@@ -1,0 +1,51 @@
+﻿@model IEnumerable<FalconWeb.Models.Device>
+
+@{
+    ViewBag.Title = "Devices";
+}
+
+<h2>Devices</h2>
+
+<p>
+    @Html.ActionLink("Add New Device", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            IMEI
+        </th>
+        <th>
+            Mobile Number
+        </th>
+        <th>
+            Vehicle Number
+        </th>
+        <th>
+            Nickname
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IMEI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MobileNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VehicleNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nickname)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Track", "Details", "Track", new { id=item.ID }, null) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

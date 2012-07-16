@@ -1,0 +1,65 @@
+﻿<script src="@Url.Content("~/Scripts/date.format.js")" type="text/javascript"></script>
+
+<h2>@ViewBag.Title</h2>
+
+@Html.DropDownList("DeviceList", (List<SelectListItem>)ViewBag.DeviceList)
+
+From: @(Html.Telerik().DateTimePicker()
+    .Name("timeRangeFrom")
+    .Value(DateTime.UtcNow.AddDays(-1.0)))
+
+To: @(Html.Telerik().DateTimePicker()
+    .Name("timeRangeTo")
+    .Value(DateTime.UtcNow))
+
+<button id="goButton">Go</button>
+
+@(Html.Telerik().Grid<FalconWeb.Models.TrackingReportModel>()
+    .Name("ReportGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(t => t.ServerTimeStamp);
+        columns.Bound(t => t.Address);
+        columns.Bound(t => t.EventDescription);
+
+    })
+    .DataBinding(d => d.Ajax().Select(ViewBag.DataAction as string, "Reports"))
+    .Pageable()
+    .Scrollable()
+    .ClientEvents(events => events
+        .OnDataBound("showData")
+        .OnDataBinding("onDataBinding"))
+    )
+
+<script type="text/javascript">
+
+    var onDataBinding = function (e) {
+        var imei = $("#DeviceList").val();
+        var from = $("#timeRangeFrom").data("tDateTimePicker").value().format("isoUtcDateTime");
+        var to = $("#timeRangeTo").data("tDateTimePicker").value().format("isoUtcDateTime");
+
+        e.data = {
+            IMEI: imei,
+            from: from,
+            to: to
+        };
+    }
+
+    var showData = function () {
+        var grid = $("#ReportGrid").data("tGrid");
+        var imei = $("#DeviceList").val();
+        var from = $("#timeRangeFrom").data("tDateTimePicker").value().format("isoUtcDateTime");
+        var to = $("#timeRangeTo").data("tDateTimePicker").value().format("isoUtcDateTime");
+
+        grid.rebind({
+            IMEI: imei,
+            from: from,
+            to: to
+        });
+    };
+
+    $(document).ready(function () {
+        $("#goButton").click(showData);
+    });
+
+</script>

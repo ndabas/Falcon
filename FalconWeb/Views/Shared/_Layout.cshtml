@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    @(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
+        .Add("telerik.common.css")
+        .Add("telerik.vista.css")
+        .Combined(true)
+        .Compress(true))
+    )
+    <script src="@Url.Content("~/Scripts/jquery-1.6.1.min.js")" type="text/javascript"></script>
+</head>
+<body>
+    <div class="page">
+        <div id="header">
+            <div id="title">
+                <h1>Falcon</h1>
+            </div>
+            <div id="logindisplay">
+                @Html.Partial("_LogOnPartial")
+            </div>
+            <div id="menucontainer">
+                @Html.MvcSiteMap().Menu()
+            </div>
+        </div>
+        <div id="main">
+            @RenderBody()
+        </div>
+        <div id="footer">
+        </div>
+    </div>
+    @Html.Telerik().ScriptRegistrar()
+</body>
+</html>

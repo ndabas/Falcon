@@ -1,0 +1,35 @@
+﻿@model FalconWeb.Models.Device
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Device</legend>
+
+    <div class="display-label">IMEI</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IMEI)
+    </div>
+
+    <div class="display-label">MobileNumber</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MobileNumber)
+    </div>
+
+    <div class="display-label">VehicleNumber</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VehicleNumber)
+    </div>
+
+    <div class="display-label">Nickname</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nickname)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

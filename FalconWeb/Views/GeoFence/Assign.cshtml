@@ -1,0 +1,20 @@
+﻿@model IEnumerable<SelectListItem>
+
+@{
+    ViewBag.Title = "Assign";
+}
+
+<h2>Assign</h2>
+@using (Html.BeginForm())
+{
+
+foreach (var item in Model)
+{
+    <input type="checkbox" name="IMEIs" value="@item.Value" />
+    @item.Text
+    <br />
+}
+
+<input type="submit" value="Assign" />
+
+}

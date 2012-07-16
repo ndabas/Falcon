@@ -1,0 +1,60 @@
+﻿@model IEnumerable<FalconWeb.Models.Device>
+
+@{
+    ViewBag.Title = "Track Vehicles";
+}
+
+<script type="text/javascript">
+    function getMultiTrackUrl() {
+        return '@Url.Action("MultiTrackingData")';
+    }
+    function getCommandUrl() {
+        return '@Url.Action("SendCommand")';
+    }
+
+    function getContentUrl() {
+        return '@Url.Content("~/Content/")';
+    }
+</script>
+<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/date.format.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/falcon.track.js")" type="text/javascript"></script>
+
+<h2>Track Vehicles</h2>
+
+<div id="dateControls">
+<input type="radio" id="timeRangeType_relative" name="timeRangeType" value="relative" checked="checked" />
+<label for="timeRangeType_relative">Show data for last: </label>
+<select id="timeRangeValue">
+<option value="15" selected="selected">15 min</option>
+<option value="30">30 min</option>
+<option value="60">1 hr</option>
+<option value="120">2 hr</option>
+<option value="180">3 hr</option>
+<option value="240">4 hr</option>
+<option value="300">5 hr</option>
+<option value="360">6 hr</option>
+</select><br />
+
+<input type="radio" id="timeRangeType_absolute" name="timeRangeType" value="absolute" />
+<label for="timeRangeType_absolute">Show data for: </label><br />
+@(Html.Telerik().DateTimePicker()
+    .Name("timeRangeFrom")
+    .Value(DateTime.UtcNow.AddHours(-6.0))) to 
+@(Html.Telerik().DateTimePicker()
+    .Name("timeRangeTo")
+    .Value(DateTime.UtcNow))
+</div>
+
+<table style="width: 100%;border: 0;"><tr><td valign="top" style="width: 200px;">
+<div id="commandStatus"></div>
+<div id="deviceList">
+@foreach (var item in Model) {
+    <input type="checkbox" value="@item.IMEI" id="@("device_" + item.ID)" data-number="@item.VehicleNumber" data-name="@item.Nickname" />
+    <label for="@("device_" + item.ID)" title="@item.Nickname">@item.VehicleNumber</label>
+    <div id="@("info_" + item.IMEI)"></div>
+    <br />
+}
+</div></td><td valign="top">
+<div id="map_canvas" style="width:100%; height:400px;"></div></td>
+</tr></table>
