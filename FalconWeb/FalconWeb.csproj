@@ -533,6 +533,7 @@
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <None Include="Properties\PublishProfiles\Local IIS.pubxml" />
     <None Include="Service References\BingMapsGeocodeService\configuration91.svcinfo" />
     <None Include="Service References\BingMapsGeocodeService\configuration.svcinfo" />
     <None Include="Service References\BingMapsGeocodeService\FalconWeb.BingMapsGeocodeService.GeocodeResponse.datasource">
