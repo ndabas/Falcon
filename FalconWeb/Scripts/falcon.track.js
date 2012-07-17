@@ -66,7 +66,7 @@
                     map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
                 }
 
-                var icon = list[0].IOStatus.charAt(5) == '1' ? greenCar : redCar;
+                var icon = (list[0].IOStatus && list[0].IOStatus.charAt(5) == '1') ? greenCar : redCar;
                 var marker = new google.maps.Marker({
                     position: current,
                     map: map,
