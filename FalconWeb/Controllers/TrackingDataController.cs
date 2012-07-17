@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Globalization;
 using FalconWeb.Models;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace FalconWeb.Controllers
 {
@@ -278,6 +279,40 @@ namespace FalconWeb.Controllers
                 GPRMC.Bearing = Convert.ToSingle(fields[8]);
 
             return GPRMC;
+        }
+
+        public string Report2(string data)
+        {
+            Regex re = new Regex(@"^\(([0-9]+)B[A-Z]([0-9]+)([0-9]{6})(A|V)([0-9]{4}\.[0-9]{4})([NS])([0-9]{5}\.[0-9]{4})([EW])[0-9]{3}\.[0-9]([0-9]{6}).*\)$");
+
+            Match match = re.Match(data);
+
+            if (match.Success)
+            {
+                Tracking trackingData = new Tracking();
+                trackingData.ServerTimeStamp = DateTime.UtcNow;
+                trackingData.IMEI = match.Groups[1].Value;
+
+                trackingData.SatelliteTimeStamp = new DateTime(
+                Convert.ToInt32(match.Groups[3].Value.Substring(0, 2)) + 2000, // year
+                Convert.ToInt32(match.Groups[3].Value.Substring(2, 2)), // month
+                Convert.ToInt32(match.Groups[3].Value.Substring(4, 2)), // day
+                Convert.ToInt32(match.Groups[9].Value.Substring(0, 2)), // hour
+                Convert.ToInt32(match.Groups[9].Value.Substring(2, 2)), // minute
+                Convert.ToInt32(match.Groups[9].Value.Substring(4, 2)), // second
+                DateTimeKind.Utc);
+
+                trackingData.SatelliteFixStatus = match.Groups[4].Value;
+                trackingData.Latitude = DDMMSSToDecimalDegrees(match.Groups[5].Value);
+                trackingData.Longitude  = DDMMSSToDecimalDegrees(match.Groups[7].Value);
+
+                db.TrackingData.Add(trackingData);
+                db.SaveChanges();
+
+                return "OK";
+            }
+
+            return "No match";
         }
 
     }
