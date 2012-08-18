@@ -2,7 +2,7 @@
 <%@ Import Namespace="System.Web.Mvc.Html" %>
 <%@ Import Namespace="MvcSiteMapProvider.Web.Html.Models" %>
 
-<ul>
+<ul class="nav">
 <% foreach (var node in Model.Nodes) { %>
     <li><%=Html.DisplayFor(m => node)%>
     <% if (node.Children.Any()) { %>

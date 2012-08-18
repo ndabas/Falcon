@@ -41,11 +41,8 @@
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Save" class="btn btn-primary" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
         </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

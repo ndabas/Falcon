@@ -23,8 +23,9 @@
 <h2>Track Vehicles</h2>
 
 <div id="dateControls">
+<label for="timeRangeType_relative">
 <input type="radio" id="timeRangeType_relative" name="timeRangeType" value="relative" checked="checked" />
-<label for="timeRangeType_relative">Show data for last: </label>
+Show data for last: </label>
 <select id="timeRangeValue">
 <option value="15" selected="selected">15 min</option>
 <option value="30">30 min</option>
@@ -36,8 +37,8 @@
 <option value="360">6 hr</option>
 </select><br />
 
-<input type="radio" id="timeRangeType_absolute" name="timeRangeType" value="absolute" />
-<label for="timeRangeType_absolute">Show data for: </label><br />
+<label for="timeRangeType_absolute"><input type="radio" id="timeRangeType_absolute" name="timeRangeType" value="absolute" />
+Show data for: </label>
 @(Html.Telerik().DateTimePicker()
     .Name("timeRangeFrom")
     .Value(DateTime.UtcNow.AddHours(-6.0))) to 
@@ -50,8 +51,9 @@
 <div id="commandStatus"></div>
 <div id="deviceList">
 @foreach (var item in Model) {
+    <label for="@("device_" + item.ID)" title="@item.Nickname">
     <input type="checkbox" value="@item.IMEI" id="@("device_" + item.ID)" data-number="@item.VehicleNumber" data-name="@item.Nickname" />
-    <label for="@("device_" + item.ID)" title="@item.Nickname">@item.VehicleNumber</label>
+    @item.VehicleNumber</label>
     <div id="@("info_" + item.IMEI)"></div>
     <br />
 }

@@ -2,7 +2,7 @@
 @using System.Web.Mvc.Html
 @using MvcSiteMapProvider.Web.Html.Models
 
-<ul>
+<ul class="nav">
     @foreach (var node in Model.Nodes) { 
         <li>@Html.DisplayFor(m => node) 
             @if (node.Children.Any()) {
